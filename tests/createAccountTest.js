@@ -1,5 +1,5 @@
 module.exports = {
-    'Account Creation Test'(browser){
+    'Account Creation Test'(browser) {
         const correctEmailAddress = 'testnightwatch123@gmail.com';
         const page = browser.page.authenticationPage();
 

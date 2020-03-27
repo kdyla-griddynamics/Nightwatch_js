@@ -2,7 +2,7 @@ module.exports = {
     url: "http://automationpractice.com/index.php?controller=authentication&back=my-account",
     elements: {
         emailInput: 'input[name="email_create"]',
-        submitCreateButton: 'button[name="SubmitCreate"][type="submit"]',
+        submitCreateButton: 'button[id="SubmitCreate"][type="submit"]',
     },
     commands: [{
         setEmailCreate(email) {
@@ -11,7 +11,9 @@ module.exports = {
         },
         submitCreate() {
             return this
-                .click('@submitCreateButton');
+                .submitForm('@submitCreateButton', function (result) {
+                    this.assert.strictEqual(result.status, 0);
+                });
         },
     }]
 };
