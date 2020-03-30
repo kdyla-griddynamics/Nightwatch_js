@@ -1,6 +1,19 @@
 module.exports = {
-    'Submit Email Address Test'(browser) {
-        const correctEmailAddress = 'testnightwatch123@gmail.com';
+    '@tags': ['se'],
+    'Submit Email Address Correct Test'(browser) {
+        const correctEmailAddress = 'testnightwatch12hdxcvg124@gmail.com';
+        const page = browser.page.authenticationPage();
+
+        //checking if typing correct email address will cause entering an account creation form
+        page
+            .navigate()
+            .setEmailCreate(correctEmailAddress)
+            .submitCreate(browser);
+
+        browser
+            .assert.urlContains('my-account#account-creation', "Account creation website is visible");
+    },
+    'Submit Email Address Fail Test'(browser) {
         const registeredEmailAddress = 'test123@gmail.com';
         const incorrectEmailAddress = 'test123gmail.com';
         const emailAlertError = 'div[id="create_account_error"]';
@@ -13,34 +26,25 @@ module.exports = {
         page
             .navigate()
             .setEmailCreate(incorrectEmailAddress)
-            .submitCreate();
+            .submitCreate(browser);
 
         browser
-            .assert.visible(emailAlertError, "Email error alert is visible");
-        browser.getText(emailAlertError, function (result) {
-            this.assert.equal(result.value, emailIncorrectText, "Incorrect email address text is visible");
-        });
+            .assert.visible(emailAlertError, "Alert box is visible")
+            .getText(emailAlertError, function (result) {
+                this.assert.equal(result.value, emailIncorrectText, "Incorrect email address text is visible");
+            });
 
         //checking if typing already registered email address will cause alert box to be visible
         // with appropriate error message
         page
             .navigate()
             .setEmailCreate(registeredEmailAddress)
-            .submitCreate();
+            .submitCreate(browser);
 
         browser
             .assert.visible(emailAlertError, "Email error alert is visible");
         browser.getText(emailAlertError, function (result) {
             this.assert.equal(result.value, emailRegisteredText, "Already registered email address text is visible");
         });
-
-        //checking if typing correct email address will cause entering an account creation form
-        page
-            .navigate()
-            .setEmailCreate(correctEmailAddress)
-            .submitCreate();
-
-        browser
-            .assert.urlContains('my-account#account-creation', "Account creation website is visible");
     }
 };

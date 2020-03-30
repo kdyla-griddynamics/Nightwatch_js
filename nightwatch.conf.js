@@ -41,6 +41,9 @@ module.exports = {
                 "browserName": "safari",
                 "javascriptEnabled": true,
                 "acceptSslCerts": true,
+            },
+            "webdriver":{
+                "use_legacy_jsonwire": false,
             }
         }
     }

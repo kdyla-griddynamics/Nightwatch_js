@@ -13,12 +13,12 @@ module.exports = {
         postcode: 'input[id="postcode"]',
         mobile: 'input[id="phone_mobile"]',
         stateDropdown: 'select[id="id_state"]',
-        submitRegisterButton: 'button[id="submitAccount"][type="submit"]',
+        submitRegisterButton: 'button[name="submitAccount"]',
     },
     commands: [{
         setGender() {
             return this
-                .click('@genderMaleRadioInput');
+                .click('@genderMaleRadioInput')
         },
         setFirstAndLastName(firstName, lastName) {
             return this
@@ -31,7 +31,9 @@ module.exports = {
         },
         setAddressFirstAndLastName(firstName, lastName) {
             return this
+                .clearValue('@addressFirstName')
                 .setValue('@addressFirstName', firstName)
+                .clearValue('@addressLastName')
                 .setValue('@addressLastName', lastName);
         },
         setAddress(address) {
@@ -55,11 +57,12 @@ module.exports = {
             return this
                 .setValue('@mobile', mobile);
         },
-        submitRegister() {
-            return this
-                .click('@submitRegisterButton', function (result) {
-                    this.assert.strictEqual(result.status, 0, "Click successful");
-                });
-        },
+        submitRegister(browser) {
+            this
+                .waitForElementVisible('@submitRegisterButton', 1000, "Submit button visible");
+            browser.execute(function () {
+                document.getElementById('submitAccount').click();
+            })
+        }
     }]
 };

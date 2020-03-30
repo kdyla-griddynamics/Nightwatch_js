@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nightwatch -e firefox"
+    "test": "nightwatch"
   },
   "keywords": [],
   "author": "",
