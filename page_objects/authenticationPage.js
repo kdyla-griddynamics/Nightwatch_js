@@ -12,7 +12,7 @@ module.exports = {
         submitCreate() {
             return this
                 .submitForm('@submitCreateButton', function (result) {
-                    this.assert.strictEqual(result.status, 0);
+                    this.assert.strictEqual(result.status, 0, "Click successful");
                 });
         },
     }]
