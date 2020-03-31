@@ -1,6 +1,6 @@
 module.exports = {
-    '@tags': ['ac','log'],
-    'Login Fail Fail Test'(browser) {
+    '@tags': ['log'],
+    'Login Fail Test'(browser) {
         const wrongEmailAddress = `wrongaddress@gmail.com`;
         const wrongPassword = 'wrongpassword';
         const formAlertError = 'div[class="alert alert-danger"]';
@@ -18,8 +18,8 @@ module.exports = {
                 this.assert.equal(result.value, formAlertText, "Error message is correct");
             })
     },
-    'Account Creation Correct Test'(browser) {
-        const correctEmailAddress = `testnightwatch3022@gmail.com`;
+    'Login Correct Test'(browser) {
+        const correctEmailAddress = `testnightwatch3023@gmail.com`;
         const correctPassword = 'password';
         const authenticationPage = browser.page.authenticationPage();
 
