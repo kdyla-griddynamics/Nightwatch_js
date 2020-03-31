@@ -32,7 +32,7 @@ module.exports = {
             })
     },
     'Account Creation Correct Test'(browser) {
-        const correctEmailAddress = `testnightwatch3023@gmail.com`;
+        const correctEmailAddress = `testnightwatch3024@gmail.com`;
         const firstName = 'FirstName';
         const lastName = 'LastName';
         const password = 'password';

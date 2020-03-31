@@ -19,7 +19,7 @@ module.exports = {
             })
     },
     'Login Correct Test'(browser) {
-        const correctEmailAddress = `testnightwatch3023@gmail.com`;
+        const correctEmailAddress = `testnightwatch3024@gmail.com`;
         const correctPassword = 'password';
         const authenticationPage = browser.page.authenticationPage();
 
