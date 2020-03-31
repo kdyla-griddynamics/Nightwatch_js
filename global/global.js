@@ -1,5 +1,7 @@
-const allure = require("nightwatch-allure-adapter");
-
+const allureReporter = require('nightwatch-allure');
 module.exports = {
-    reporter: allure.write
+    reporter: (results,done)=>{
+        const reporter = new allureReporter.NightwatchAllureReporter({});
+        reporter.write(results,done);
+    }
 };
