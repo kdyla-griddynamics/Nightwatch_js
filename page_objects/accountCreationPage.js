@@ -1,5 +1,4 @@
 module.exports = {
-    url: "http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation",
     elements: {
         genderMaleRadioInput: 'label[for="id_gender1"]',
         genderFemaleRadioInput: 'label[for="id_gender2"]',

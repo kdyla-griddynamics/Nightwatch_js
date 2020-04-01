@@ -1,5 +1,4 @@
 module.exports = {
-    url: "http://automationpractice.com/index.php?controller=authentication&back=my-account",
     elements: {
         emailCreateInput: 'input[name="email_create"]',
         emailLoginInput: 'input[id="email"]',

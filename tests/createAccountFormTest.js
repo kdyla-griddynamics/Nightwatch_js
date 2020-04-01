@@ -1,7 +1,8 @@
 module.exports = {
     '@tags': ['ac'],
     'Account Creation Fail Test'(browser) {
-        const correctEmailAddress = `testnightwatch3013@gmail.com`;
+        const url = browser.globals.authPageUrl;
+        const correctEmailAddress = browser.globals.emailToCreateAccount;
         const formAlertError = 'div[class="alert alert-danger"]';
         const formAlertText = "There are 8 errors\n" + "You must register at least one phone number.\n" +
             "lastname is required.\n" +
@@ -11,16 +12,19 @@ module.exports = {
             "city is required.\n" +
             "The Zip/Postal code you've entered is invalid. It must follow this format: 00000\n" +
             "This country requires you to choose a State.";
+        const correctAccountCreationUrl = 'my-account#account-creation';
         const authenticationPage = browser.page.authenticationPage();
         const formPage = browser.page.accountCreationPage();
 
+        // checking if creating account without filling
+        // required fields will cause alert box with appropriate error messages
         authenticationPage
-            .navigate()
+            .navigate(url)
             .setEmailCreate(correctEmailAddress)
             .submitCreate(browser);
 
         browser
-            .assert.urlContains('my-account#account-creation', "Account creation page is visible");
+            .assert.urlContains(correctAccountCreationUrl, "Account creation page is visible");
 
         formPage
             .submitRegister(browser);
@@ -32,7 +36,8 @@ module.exports = {
             })
     },
     'Account Creation Correct Test'(browser) {
-        const correctEmailAddress = `testnightwatch3026@gmail.com`;
+        const url = browser.globals.authPageUrl;
+        const correctEmailAddress = browser.globals.emailToCreateAccount;
         const firstName = 'FirstName';
         const lastName = 'LastName';
         const password = 'password';
@@ -40,16 +45,21 @@ module.exports = {
         const city = 'Scranton';
         const postcode = '90210';
         const mobile = '777888999';
+        const correctMyAccountUrl = 'index.php?controller=my-account';
+        const correctAccountCreationUrl = 'my-account#account-creation';
+        const myAccountBody = 'body[id="my-account"]';
         const authenticationPage = browser.page.authenticationPage();
         const formPage = browser.page.accountCreationPage();
 
+        // checking if creating account with new email address
+        // correct data in required fields will redirect to my account page
         authenticationPage
-            .navigate()
+            .navigate(url)
             .setEmailCreate(correctEmailAddress)
             .submitCreate(browser);
 
         browser
-            .assert.urlContains('my-account#account-creation', "Account creation page is visible");
+            .assert.urlContains(correctAccountCreationUrl, "Account creation page is visible");
 
         formPage
             .setGender()
@@ -74,7 +84,7 @@ module.exports = {
             .submitRegister(browser);
 
         browser
-            .assert.urlContains('index.php?controller=my-account', "My account page url is correct")
-            .assert.visible('body[id="my-account"]', "My account page is visible");
+            .assert.urlContains(correctMyAccountUrl, "My account page url is correct")
+            .assert.visible(myAccountBody, "My account page is visible");
     }
 };

@@ -4,7 +4,7 @@ module.exports = {
     "custom_commands_path": "",
     "custom_assertions_path": "",
     "page_objects_path": "page_objects",
-    "globals_path": "",
+    "globals_path": "global/globals.js",
     "selenium": {
         "start_process": true,
         "server_path": require('selenium-server').path,

@@ -1,12 +1,13 @@
 module.exports = {
     '@tags': ['se'],
     'Submit Email Address Correct Test'(browser) {
-        const correctEmailAddress = 'testnightwatch12hdxcvg124@gmail.com';
+        const url = browser.globals.authPageUrl;
+        const correctEmailAddress = browser.globals.emailToCheckSubmitButton;
         const page = browser.page.authenticationPage();
 
         //checking if typing correct email address will cause entering an account creation form
         page
-            .navigate()
+            .navigate(url)
             .setEmailCreate(correctEmailAddress)
             .submitCreate(browser);
 
@@ -14,7 +15,8 @@ module.exports = {
             .assert.urlContains('my-account#account-creation', "Account creation website is visible");
     },
     'Submit Email Address Fail Test'(browser) {
-        const registeredEmailAddress = 'test123@gmail.com';
+        const url = browser.globals.authPageUrl;
+        const registeredEmailAddress = browser.globals.registeredEmail;
         const incorrectEmailAddress = 'test123gmail.com';
         const emailAlertError = 'div[id="create_account_error"]';
         const emailRegisteredText = 'An account using this email address has already been registered. Please enter a valid password or request a new one.';
@@ -24,7 +26,7 @@ module.exports = {
         //checking if typing incorrect email address will cause alert box to be visible
         // with appropriate error message
         page
-            .navigate()
+            .navigate(url)
             .setEmailCreate(incorrectEmailAddress)
             .submitCreate(browser);
 
@@ -37,7 +39,7 @@ module.exports = {
         //checking if typing already registered email address will cause alert box to be visible
         // with appropriate error message
         page
-            .navigate()
+            .navigate(url)
             .setEmailCreate(registeredEmailAddress)
             .submitCreate(browser);
 
