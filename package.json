@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/nightwatch -e firefox,chrome,safari"
+    "test": "nightwatch"
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,9 @@
     "chromedriver": "^80.0.1",
     "geckodriver": "^1.19.1",
     "selenium-server": "^3.141.59"
+  },
+  "dependencies": {
+    "nightwatch-allure": "^1.2.0",
+    "save": "^2.4.0"
   }
 }
