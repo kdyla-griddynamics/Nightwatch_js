@@ -2,7 +2,7 @@ module.exports = {
     '@tags': ['log'],
     'Login Fail Test'(browser) {
         const url = browser.globals.authPageUrl;
-        const wrongEmailsList = browser.globals.wrongEmailsList;
+        const wrongEmailsList = browser.globals.emailsToCheckList;
         const wrongPassword = 'wrongpassword';
         const formAlertError = 'div[class="alert alert-danger"]';
         const formAlertText = "There is 1 error\nAuthentication failed.";
@@ -28,6 +28,7 @@ module.exports = {
         const correctEmailsList = browser.globals.registeredEmailsList;
         const correctPassword = 'password';
         const myAccountBody = 'body[id="my-account"]';
+        const authenticationBody = 'body[id="authentication"]';
         const authenticationPage = browser.page.authenticationPage();
 
         // checking if logging in with correct credentials
@@ -39,7 +40,14 @@ module.exports = {
                 .submitLogin(browser);
 
             browser
-                .assert.visible(myAccountBody, "My account page is visible");
+                .waitForElementVisible(myAccountBody, 3000, function () {
+                        this.assert.visible(myAccountBody);
+                    },
+                    "My account page is visible");
+
+            authenticationPage
+                .signOut()
+                .waitForElementVisible(authenticationBody, 3000, "Authentication page is visible");
         }
     }
 };

@@ -5,6 +5,7 @@ module.exports = {
         emailPasswordInput: 'input[id="passwd"]',
         submitCreateButton: 'button[id="SubmitCreate"][type="submit"]',
         submitLoginButton: 'button[id="SubmitLogin"][type="submit"]',
+        signOutButton: 'a[title="Log me out"]'
     },
     commands: [{
         setEmailCreate(email) {
@@ -18,17 +19,23 @@ module.exports = {
         },
         submitCreate(browser){
             this
-                .waitForElementVisible('@submitCreateButton', 1000, "Submit button visible");
+                .waitForElementVisible('@submitCreateButton', 3000, "Submit button visible");
             browser.execute(function () {
                 document.getElementById('SubmitCreate').click();
             })
         },
         submitLogin(browser){
             this
-                .waitForElementVisible('@submitLoginButton', 1000, "Submit button visible");
+                .waitForElementVisible('@submitLoginButton', 3000, "Submit button visible");
             browser.execute(function () {
                 document.getElementById('SubmitLogin').click();
-            })
+            });
+        },
+        signOut(){
+            return this
+                .waitForElementVisible('@signOutButton', 3000, "Sign out button visible")
+                .click('@signOutButton');
+
         }
     }]
 };
