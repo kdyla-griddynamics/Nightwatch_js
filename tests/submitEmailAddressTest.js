@@ -4,6 +4,7 @@ module.exports = {
         const url = browser.globals.authPageUrl;
         const correctEmailsList = browser.globals.emailsToCheckList;
         const page = browser.page.authenticationPage();
+        const authenticationBody = 'body[id="authentication"]';
 
         //checking if typing correct email address will cause entering an account creation form
         for (i = 0; i < correctEmailsList.length; i++) {
@@ -13,7 +14,10 @@ module.exports = {
                 .submitCreate(browser);
 
             browser
-                .assert.urlContains('my-account#account-creation', "Account creation website is visible");
+                .waitForElementVisible(authenticationBody, 3000, function () {
+                        this.assert.visible(authenticationBody);
+                    },
+                    "Authentication page is visible");
         }
     },
     'Submit Email Address Fail Test'(browser) {
