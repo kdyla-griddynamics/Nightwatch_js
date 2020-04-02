@@ -3,7 +3,7 @@ module.exports = {
     'Add To Cart Test'(browser) {
         const url = browser.globals.mainPage;
         const page = browser.page.mainPage();
-        const correctEmailAddress = browser.globals.registeredEmail;
+        const correctEmailAddress = browser.globals.registeredEmailsList;
         const correctPassword = 'password';
         const checkoutHeader = 'h1[id="cart_title"]';
         const checkoutHeaderText = 'SHOPPING-CART SUMMARY';
@@ -35,7 +35,7 @@ module.exports = {
 
         page
             .proceedToSignIn()
-            .setLoginAndPassword(correctEmailAddress, correctPassword)
+            .setLoginAndPassword(correctEmailAddress.pop(), correctPassword)
             .submitLogin(browser);
 
         browser

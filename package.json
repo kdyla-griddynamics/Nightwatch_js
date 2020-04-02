@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "nightwatch-allure": "^1.2.0",
-    "save": "^2.4.0"
+    "save": "^2.4.0",
+    "node": "latest"
   }
 }
