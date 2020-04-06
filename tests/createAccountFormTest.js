@@ -3,7 +3,7 @@ module.exports = {
     'Account Creation Fail Test'(browser) {
         const fs = require('fs');
         const url = browser.globals.authPageUrl;
-        const correctEmailsList = browser.globals.emailsToCreateAccount;
+        let nextEmailNumber = browser.globals.emailToCreateAccount;
         const formAlertError = 'div[class="alert alert-danger"]';
         const formAlertText = "There are 8 errors\n" + "You must register at least one phone number.\n" +
             "lastname is required.\n" +
@@ -16,24 +16,12 @@ module.exports = {
         const correctAccountCreationUrl = 'my-account#account-creation';
         const authenticationPage = browser.page.authenticationPage();
         const formPage = browser.page.accountCreationPage();
-        // removing the empty new line from file source
-        correctEmailsList.pop();
-        const nextEmailAddress = correctEmailsList.pop();
-        // writing shorter emails address list to file
-        const file = fs.createWriteStream('data-providers/unregisteredemailtocreate.txt');
-        file.on('error', function (err) {
-            console.log(err)
-        });
-        correctEmailsList.forEach(function (v) {
-            file.write(v + '\n');
-        });
-        file.end();
 
         // checking if creating account without filling
         // required fields will cause alert box with appropriate error messages
         authenticationPage
             .navigate(url)
-            .setEmailCreate(nextEmailAddress)
+            .setEmailCreate(`testnightwatch${++nextEmailNumber}@gmail.com`)
             .submitCreate(browser);
 
         browser
@@ -47,11 +35,13 @@ module.exports = {
             .getText(formAlertError, function (result) {
                 this.assert.equal(result.value, formAlertText, "Error message is correct");
             });
+        // writing used email suffix to file
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber);
     },
     'Account Creation Correct Test'(browser) {
         const fs = require('fs');
         const url = browser.globals.authPageUrl;
-        const correctEmailsList = browser.globals.emailsToCreateAccount;
+        let nextEmailNumber = browser.globals.emailToCreateAccount;
         const firstName = 'FirstName';
         const lastName = 'LastName';
         const password = 'password';
@@ -64,22 +54,12 @@ module.exports = {
         const myAccountBody = 'body[id="my-account"]';
         const authenticationPage = browser.page.authenticationPage();
         const formPage = browser.page.accountCreationPage();
-        const nextEmailAddress = correctEmailsList.pop();
-        // writing shorter emails address list to file
-        const file = fs.createWriteStream('data-providers/unregisteredemailtocreate.txt');
-        file.on('error', function (err) {
-            console.log(err)
-        });
-        correctEmailsList.forEach(function (v) {
-            file.write(v + '\n');
-        });
-        file.end();
 
         // checking if creating account with new email address
         // correct data in required fields will redirect to my account page
         authenticationPage
             .navigate(url)
-            .setEmailCreate(nextEmailAddress)
+            .setEmailCreate(`testnightwatch${++nextEmailNumber}@gmail.com`)
             .submitCreate(browser);
 
         browser
@@ -110,5 +90,8 @@ module.exports = {
         browser
             .assert.urlContains(correctMyAccountUrl, "My account page url is correct")
             .assert.visible(myAccountBody, "My account page is visible");
+
+        // writing used email suffix to file
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber);
     }
 };

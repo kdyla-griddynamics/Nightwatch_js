@@ -10,7 +10,6 @@ const unregisteredEmailToCreateSrc = fs.readFileSync("data-providers/unregistere
 const wrongEmailsList = wrongEmailSrc.split("\n");
 const registeredEmailsList = registeredEmailSrc.split("\n");
 const unregisteredEmailsToCheckList = unregisteredEmailToCheckSrc.split("\n");
-const unregisteredEmailsToCreateList = unregisteredEmailToCreateSrc.split("\n");
 module.exports = {
     reporter: (results, done) => {
         const reporter = new allureReporter.NightwatchAllureReporter({});
@@ -21,5 +20,5 @@ module.exports = {
     registeredEmailsList: registeredEmailsList,
     emailsToCheckList: unregisteredEmailsToCheckList,
     wrongEmailsList: wrongEmailsList,
-    emailsToCreateAccount: unregisteredEmailsToCreateList,
+    emailToCreateAccount: unregisteredEmailToCreateSrc,
 };
