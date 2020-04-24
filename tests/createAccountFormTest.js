@@ -36,7 +36,7 @@ module.exports = {
                 this.assert.equal(result.value, formAlertText, "Error message is correct");
             });
         // writing used email suffix to file
-        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber);
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber.toString());
     },
     'Account Creation Correct Test'(browser) {
         const fs = require('fs');
@@ -92,6 +92,6 @@ module.exports = {
             .assert.visible(myAccountBody, "My account page is visible");
 
         // writing used email suffix to file
-        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber);
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', nextEmailNumber.toString());
     }
 };
