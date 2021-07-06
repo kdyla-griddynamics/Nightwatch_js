@@ -1,8 +1,9 @@
 module.exports = {
     '@tags': ['ac'],
     'Account Creation Fail Test'(browser) {
+        const fs = require('fs');
         const url = browser.globals.authPageUrl;
-        const correctEmailAddress = browser.globals.emailToCreateAccount;
+        let nextEmailNumber = browser.globals.emailToCreateAccount;
         const formAlertError = 'div[class="alert alert-danger"]';
         const formAlertText = "There are 8 errors\n" + "You must register at least one phone number.\n" +
             "lastname is required.\n" +
@@ -20,7 +21,7 @@ module.exports = {
         // required fields will cause alert box with appropriate error messages
         authenticationPage
             .navigate(url)
-            .setEmailCreate(correctEmailAddress)
+            .setEmailCreate(`testnightwatch${++nextEmailNumber}@gmail.com`)
             .submitCreate(browser);
 
         browser
@@ -33,11 +34,14 @@ module.exports = {
             .assert.visible(formAlertError, "Alert box is visible")
             .getText(formAlertError, function (result) {
                 this.assert.equal(result.value, formAlertText, "Error message is correct");
-            })
+            });
+        // writing used email suffix to file
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', (++nextEmailNumber).toString());
     },
     'Account Creation Correct Test'(browser) {
+        const fs = require('fs');
         const url = browser.globals.authPageUrl;
-        const correctEmailAddress = browser.globals.emailToCreateAccount;
+        let nextEmailNumber = browser.globals.emailToCreateAccount;
         const firstName = 'FirstName';
         const lastName = 'LastName';
         const password = 'password';
@@ -55,7 +59,7 @@ module.exports = {
         // correct data in required fields will redirect to my account page
         authenticationPage
             .navigate(url)
-            .setEmailCreate(correctEmailAddress)
+            .setEmailCreate(`testnightwatch${++nextEmailNumber}@gmail.com`)
             .submitCreate(browser);
 
         browser
@@ -86,5 +90,8 @@ module.exports = {
         browser
             .assert.urlContains(correctMyAccountUrl, "My account page url is correct")
             .assert.visible(myAccountBody, "My account page is visible");
+
+        // writing used email suffix to file
+        fs.writeFileSync('data-providers/unregisteredemailtocreate.txt', (++nextEmailNumber).toString());
     }
 };
